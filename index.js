@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -7,17 +6,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Conexao com Mongo
-mongoose.connect('mongodb://mongo:27017/docker-node-mongo', { useNewUrlParser: true })
-
-  mongoose.connection.on('connected', function () {console.log('Mongo Conectado!');}); 
-  mongoose.connection.on('error',function (err) {console.log('Mongo Erro na Conexao!');}); 
-
-mongoose.connection.on('disconnected', function () {  
-  console.log('Mongo Desconectado!'); 
-  });
 
 
+const mongoose = require('./database/db');
 //Esquema da collection do Mongo
 const ItemSchema =  mongoose.Schema({
   hello: { type: String,
